@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #2a3350 #0b0f1a;
+}
+
+body {
+  background-color: #0b0f1a;
+  color: #e9eaf0;
+  font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.num {
+  font-family: "IBM Plex Mono", monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.card {
+  background-color: #141a2b;
+  border: 1px solid #2a3350;
+  border-radius: 10px;
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid #d4a94e;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

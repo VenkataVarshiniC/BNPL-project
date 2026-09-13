@@ -1,0 +1,92 @@
+[
+  {
+    "id": "UAT-01",
+    "req": "FR-01",
+    "scenario": "Portfolio endpoint returns all headline metrics",
+    "expected": "HTTP 200, 9 fields present, 42,000 transactions",
+    "actual": "HTTP 200, missing=none, txns=42000",
+    "status": "PASS",
+    "defect": ""
+  },
+  {
+    "id": "UAT-02",
+    "req": "FR-02",
+    "scenario": "Category net profits reconcile to the portfolio total",
+    "expected": "10 categories summing to -422,613.78",
+    "actual": "10 categories summing to -422,613.79 (delta -0.01)",
+    "status": "PASS",
+    "defect": ""
+  },
+  {
+    "id": "UAT-03",
+    "req": "FR-06",
+    "scenario": "Threshold search extends past the point where approvals run out",
+    "expected": "lowest simulated threshold <= 0.01 approving <=5 txns, >=10 points below 0.05, boundary flag returned",
+    "actual": "lowest simulated threshold=0.0075 approving 1 txns, 17 points below 0.05, boundary_optimum=False",
+    "status": "PASS",
+    "defect": ""
+  },
+  {
+    "id": "UAT-04",
+    "req": "FR-07",
+    "scenario": "Four named strategies returned, each with trade-off fields",
+    "expected": "4 strategies, each with profit_vs_legacy / approval delta / floor flag / rationale",
+    "actual": "4 strategies ['volume_matched', 'breakeven', 'constrained_max', 'unconstrained_max'], fields_ok=True, recommended=breakeven",
+    "status": "PASS",
+    "defect": ""
+  },
+  {
+    "id": "UAT-05",
+    "req": "FR-07/FR-09",
+    "scenario": "Improvement measured against the legacy baseline, not approve-all",
+    "expected": "profit_vs_legacy == net_profit - legacy_net for every strategy",
+    "actual": "all four consistent",
+    "status": "PASS",
+    "defect": ""
+  },
+  {
+    "id": "UAT-06",
+    "req": "FR-08",
+    "scenario": "Changing LGD recomputes baselines and the recommendation",
+    "expected": "profit decreases as LGD rises; recommended threshold changes",
+    "actual": "legacy @45%=46,049 > @65%=-141,629 > @85%=-329,308 (monotonic=True); rec thr 0.105 -> 0.16",
+    "status": "PASS",
+    "defect": ""
+  },
+  {
+    "id": "UAT-07",
+    "req": "FR-07/FR-11",
+    "scenario": "Volume floor is enforced and infeasibility is surfaced",
+    "expected": "constrained_max respects a 95% floor; feasibility flag + caveat present",
+    "actual": "constrained_max approval=95.16%, volume_floor_feasible=False, floor caveat=True",
+    "status": "PASS",
+    "defect": ""
+  },
+  {
+    "id": "UAT-08",
+    "req": "FR-05/NFR-09",
+    "scenario": "Invalid inputs rejected with 422",
+    "expected": "negative amount, bad installments, missing field, out-of-range LGD all rejected",
+    "actual": "all rejected correctly",
+    "status": "PASS",
+    "defect": ""
+  },
+  {
+    "id": "UAT-09",
+    "req": "FR-11/NFR-04",
+    "scenario": "Projections are never returned without caveats and assumptions",
+    "expected": "caveats present incl. synthetic + backtest; full assumption set returned",
+    "actual": "4 caveats (synthetic=True, backtest=True), assumptions complete=True",
+    "status": "PASS",
+    "defect": ""
+  },
+  {
+    "id": "UAT-10",
+    "req": "FR-03/FR-10/NFR-01",
+    "scenario": "Figures on screen match the API; sort and filter work",
+    "expected": "improvement 149,217 and baseline 141,629 shown consistently; sort reorders; filter returns rows",
+    "actual": "consistent across executive, decision and comparison; sort and filter functional",
+    "status": "PASS",
+    "defect": ""
+  }
+]

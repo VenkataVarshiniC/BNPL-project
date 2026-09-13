@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+
+# Environment variables
+.env
+
+# Generated data & model artifacts (regenerate via the two commands in README.md)
+app/data/*.csv
+app/ml/*.pkl
+app/ml/*.json
+app/ml/*.npy
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
