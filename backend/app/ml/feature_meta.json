@@ -18,5 +18,5 @@
   "n_train": 33600,
   "n_test": 8400,
   "n_oof": 42000,
-  "sklearn_version": "1.5.1"
+  "sklearn_version": "1.4.2"
 }
