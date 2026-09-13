@@ -81,3 +81,23 @@ Carried deliberately, documented rather than hidden — see [`docs/raci.md`](doc
 - **`.env.example` shipped with `API_HOST` / `API_PORT`**, neither of which is a Settings field. Pydantic's default `extra="forbid"` turned a typo in an optional config file into a crash at import time, before any error handler existed to explain it. Corrected to real fields, `extra = "ignore"` added, two regression tests.
 - **Comparison page contradicted itself** — highlighted a loss-making strategy as "best" while the recommendation star sat on a different, profitable column.
 - **Loss-share denominator differed** between the dashboard (41.5%) and NUMBERS.md (41.9%). Denominator now stated explicitly and both figures published.
+
+---
+
+## Production incident — missing artifacts surfaced as a CORS error
+
+**Symptom.** On Vercel, `/api/optimization/thresholds` returned 500 while `/api/profitability/merchants` returned 200. The browser reported `No 'Access-Control-Allow-Origin' header is present`, which pointed the investigation at CORS.
+
+**Root cause.** `app/ml/oof_scores.npy` is gitignored, so it is absent from any deployment built from the repository. `get_oof_scores()` raised `FileNotFoundError`, which nothing handled. Endpoints that do not need that artifact were unaffected, which is why only one endpoint failed.
+
+**Why it looked like CORS.** An unhandled exception propagates *past* `CORSMiddleware`, so the 500 Starlette generates above it carries no `Access-Control-Allow-Origin` header. The browser sees a header-less error response and reports a CORS violation — hiding the real fault. Demonstrated in `tests/test_error_handling.py`.
+
+**Not the cause.** Query-string construction. `client.js` passes an axios `params` object, which serialises correctly; the 422 `float_parsing` error seen during manual testing came from ampersands being encoded in that hand-built URL, and is a different failure (422) from the one the browser hit (500).
+
+**Fixed**
+- `FileNotFoundError` handler returning a legible 503 that names the missing artifact.
+- Catch-all `Exception` handler, so no error can reach a browser without CORS headers.
+- New `GET /health/artifacts` — reports which artifacts are present and which endpoints are consequently available.
+- CORS `allow_origins` narrowed from `["*"]` to an explicit list (`["*"]` with `allow_credentials=True` is invalid per the Fetch spec and was never working for credentialed requests).
+- `.gitignore` annotated with the deployment consequence.
+- 7 regression tests, bringing the suite to 47.

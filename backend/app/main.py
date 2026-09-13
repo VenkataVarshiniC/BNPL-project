@@ -23,7 +23,7 @@ app = FastAPI(
 # spec — browsers reject it — so the wildcard was never actually working for a
 # credentialed request. Listing origins explicitly is both correct and required.
 ALLOWED_ORIGINS = [
-    "https://bnpl-app-flame.vercel.app",
+    "https://bnpl-app-taupe.vercel.app/",
     "http://localhost:3000",
     "http://localhost:5173",
     "http://127.0.0.1:3000",
