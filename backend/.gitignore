@@ -13,9 +13,10 @@ ENV/
 
 # Environment variables
 .env
+.env.*
+!.env.example
 
-# Generated data & model artifacts (regenerate via the two commands in README.md)
-app/data/*.csv
+# Generated ML artifacts
 app/ml/*.pkl
 app/ml/*.json
 app/ml/*.npy
@@ -24,6 +25,7 @@ app/ml/*.npy
 .vscode/
 .idea/
 *.swp
+*.swo
 
 # OS
 .DS_Store
@@ -36,3 +38,16 @@ Thumbs.db
 build/
 dist/
 *.egg-info/
+
+# Testing / Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.coverage.*
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Temporary files
+*.tmp
+*.temp
