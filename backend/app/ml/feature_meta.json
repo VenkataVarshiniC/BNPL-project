@@ -1,0 +1,22 @@
+{
+  "numeric_features": [
+    "transaction_amount",
+    "num_installments",
+    "age",
+    "income",
+    "credit_score"
+  ],
+  "categorical_features": [
+    "merchant_category",
+    "employment_status",
+    "region"
+  ],
+  "target": "is_default",
+  "holdout_auc": 0.7043,
+  "oof_auc": 0.7076,
+  "cv_folds": 5,
+  "n_train": 33600,
+  "n_test": 8400,
+  "n_oof": 42000,
+  "sklearn_version": "1.5.1"
+}
