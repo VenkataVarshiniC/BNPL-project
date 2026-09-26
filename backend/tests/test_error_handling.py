@@ -19,7 +19,7 @@ from fastapi.testclient import TestClient
 from app.config import settings
 from app.main import app
 
-ORIGIN = {"Origin": "https://bnpl-app-taupe.vercel.app"}
+ORIGIN = {"Origin": "https://frontend-orcin-ten-74.vercel.app"}
 
 
 @pytest.fixture
