@@ -61,3 +61,14 @@ export async function getExplainability(customerId, params = {}) {
   });
   return data;
 }
+
+// Endpoint 7 — FP&A management reporting
+export async function getFpnaOverview() {
+  const { data } = await api.get("/api/fpna/overview");
+  return data;
+}
+
+export async function getFpnaSqlReporting() {
+  const { data } = await api.get("/api/fpna/sql-reporting");
+  return data;
+}

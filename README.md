@@ -6,6 +6,11 @@ A decision-support platform for Buy Now, Pay Later underwriting: it attributes w
 
 Built on a synthetic portfolio of **5,000 customers and 42,000 transactions**.
 
+The platform now also includes a 12-month FP&A layer: management P&L,
+budget-versus-actual bridges, downside/base/upside scenarios, profitability
+sensitivity, and reconciled DuckDB reporting views. See the
+[FP&A case study](docs/FPNA_CASE_STUDY.md).
+
 ![Executive summary](docs/screenshots/01-executive.png)
 
 ---
@@ -139,7 +144,11 @@ The two highest-scoring risks remain **open and accepted**: the data is syntheti
 
 ## Testing & UAT
 
-**40 unit tests** covering revenue, expected loss, net profit, threshold simulation, policy baselines, the strategy ladder, edge cases and invalid inputs. Every expected value is computed by hand from a six-row fixture — **no test pins a headline figure**, so the suite cannot drift into merely confirming whatever the code currently does.
+**50 financial calculation tests** cover revenue, expected loss, net profit,
+threshold simulation, policy baselines, the strategy ladder, management P&L,
+budget bridges, forecasting, scenarios, sensitivity, DuckDB reconciliation,
+edge cases and invalid inputs. Core expected values are computed independently
+rather than pinning a headline figure.
 
 **10 UAT cases**, executed by a harness against the live API and a real browser. Nine assert against the API; one drives Chromium and checks that the numbers on screen match what the backend returned.
 
@@ -174,14 +183,16 @@ generate_synthetic_data.py → CSVs → train_model.py → model + OOF scores
                                           ↓
                               analytics_engine.py  (all financial logic)
                                           ↓
-                                  FastAPI (7 endpoints)
+                     financial_engine.py + DuckDB reporting views
+                                          ↓
+                                  FastAPI reporting APIs
                                           ↓
                               React console (5 decision screens)
 ```
 
 Full component detail and technology trade-offs in [architecture.md](docs/architecture.md).
 
-**Tech stack** — FastAPI · scikit-learn · pandas · SHAP · pytest · React 18 · Vite · Tailwind · Recharts · Playwright
+**Tech stack** — FastAPI · scikit-learn · pandas · DuckDB · SHAP · pytest · React 18 · Vite · Tailwind · Recharts · Playwright
 
 ---
 

@@ -39,6 +39,9 @@ Docs: http://localhost:8000/docs
 | GET | `/api/portfolio/profitability` | Portfolio-level net profit |
 | GET | `/api/optimization/thresholds` | Approval-threshold profit simulation |
 | GET | `/api/explainability/{customer_id}` | SHAP explanation for a risk score |
+| GET | `/api/fpna/overview` | Management P&L, forecast, budget variance, and scenarios |
+| GET | `/api/fpna/scenarios` | Scenario assumptions, comparisons, and sensitivities |
+| GET | `/api/fpna/sql-reporting` | DuckDB views and Python/SQL reconciliation |
 
 ## Folder structure
 

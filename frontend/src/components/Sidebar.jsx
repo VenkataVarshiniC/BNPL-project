@@ -18,16 +18,17 @@ const NAV_GROUPS = [
   {
     heading: "Decision",
     items: [
-      { to: "/app/simulator", label: "Strategy simulator", glyph: "05" },
-      { to: "/app/comparison", label: "Scenario comparison", glyph: "06" },
-      { to: "/app/decision", label: "Decision summary", glyph: "07" },
+      { to: "/app/fpna", label: "FP&A dashboard", glyph: "05" },
+      { to: "/app/simulator", label: "Strategy simulator", glyph: "06" },
+      { to: "/app/comparison", label: "Scenario comparison", glyph: "07" },
+      { to: "/app/decision", label: "Decision summary", glyph: "08" },
     ],
   },
   {
     heading: "Model",
     items: [
-      { to: "/app/risk-score", label: "Risk score", glyph: "08" },
-      { to: "/app/explainability", label: "Explainability", glyph: "09" },
+      { to: "/app/risk-score", label: "Risk score", glyph: "09" },
+      { to: "/app/explainability", label: "Explainability", glyph: "10" },
     ],
   },
 ];

@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.config import settings
-from app.routers import segmentation, profitability, risk, portfolio, optimization, explainability
+from app.routers import segmentation, profitability, risk, portfolio, optimization, explainability, fpna
 from app.services.risk_model import ModelVersionMismatchError, ModelFileCorruptError
 
 logger = logging.getLogger("bnpl")
@@ -118,6 +118,7 @@ app.include_router(risk.router)
 app.include_router(portfolio.router)
 app.include_router(optimization.router)
 app.include_router(explainability.router)
+app.include_router(fpna.router)
 
 
 @app.get("/", tags=["Health"])
@@ -132,6 +133,9 @@ def root():
             "/api/portfolio/profitability",
             "/api/optimization/thresholds",
             "/api/explainability/{customer_id}",
+            "/api/fpna/overview",
+            "/api/fpna/scenarios",
+            "/api/fpna/sql-reporting",
         ],
         "docs": "/docs",
     }
@@ -182,6 +186,8 @@ def health_artifacts():
         "/api/explainability/{customer_id}": ok(
             "customers.csv", "transactions.csv", "risk_model.pkl"
         ),
+        "/api/fpna/overview": ok("customers.csv", "transactions.csv"),
+        "/api/fpna/sql-reporting": ok("customers.csv", "transactions.csv"),
     }
 
     missing = [n for n, a in artifacts.items() if not a["present"] or a["bytes"] == 0]

@@ -14,6 +14,7 @@ import Optimization from "./pages/Optimization.jsx";
 import Comparison from "./pages/Comparison.jsx";
 import Decision from "./pages/Decision.jsx";
 import Explainability from "./pages/Explainability.jsx";
+import FpnaDashboard from "./pages/FpnaDashboard.jsx";
 
 const PAGE_META = {
   "/app": {
@@ -51,6 +52,10 @@ const PAGE_META = {
   "/app/explainability": {
     title: "Explainability",
     subtitle: "SHAP feature contributions behind a risk score",
+  },
+  "/app/fpna": {
+    title: "Financial planning & profitability",
+    subtitle: "Management P&L, budget variance, scenarios, and forecast drivers",
   },
 };
 
@@ -90,6 +95,7 @@ export default function App() {
           <Route path="decision" element={<Decision />} />
           <Route path="risk-score" element={<RiskScore />} />
           <Route path="explainability" element={<Explainability />} />
+          <Route path="fpna" element={<FpnaDashboard />} />
           {/* Old path kept so existing links and bookmarks don't 404 */}
           <Route path="optimization" element={<Optimization />} />
         </Route>
