@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.page-enter { animation: page-enter 220ms ease-out; }
+
 * {
   scrollbar-width: thin;
   scrollbar-color: #2a3350 #0b0f1a;

@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import AnimatedNumber from "./AnimatedNumber.jsx";
 
 export default function MetricCard({ label, rawValue, format, value, sublabel, tone = "default" }) {
@@ -10,11 +9,7 @@ export default function MetricCard({ label, rawValue, format, value, sublabel, t
       : "text-paper";
 
   return (
-    <motion.div
-      whileHover={{ y: -2, borderColor: "#D4A94E" }}
-      transition={{ duration: 0.15 }}
-      className="card p-5"
-    >
+    <div className="card p-5 transition-transform hover:-translate-y-0.5 hover:border-gold">
       <div className="text-xs uppercase tracking-wide text-paper-dim mb-2">
         {label}
       </div>
@@ -26,6 +21,6 @@ export default function MetricCard({ label, rawValue, format, value, sublabel, t
         )}
       </div>
       {sublabel && <div className="text-xs text-paper-dim mt-1.5">{sublabel}</div>}
-    </motion.div>
+    </div>
   );
 }

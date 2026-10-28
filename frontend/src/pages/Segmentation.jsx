@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import { getSegmentation } from "../api/client.js";
 import { SkeletonGrid } from "../components/Skeleton.jsx";
 import ErrorState from "../components/ErrorState.jsx";
@@ -42,11 +41,10 @@ export default function Segmentation() {
         {data.segments.map((seg) => {
           const isActive = selected === seg.segment_name;
           return (
-            <motion.button
+            <button
               key={seg.segment_name}
               onClick={() => setSelected(isActive ? null : seg.segment_name)}
-              whileHover={{ y: -2 }}
-              className={`card p-5 text-left transition-colors focus-ring ${
+              className={`card p-5 text-left transition-all focus-ring hover:-translate-y-0.5 ${
                 isActive ? "border-gold" : "hover:border-paper-dim/40"
               }`}
             >
@@ -81,17 +79,13 @@ export default function Segmentation() {
                   </dd>
                 </div>
               </dl>
-            </motion.button>
+            </button>
           );
         })}
       </div>
 
       {activeSeg && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          className="card p-5 mt-4 overflow-hidden"
-        >
+        <div className="page-enter card p-5 mt-4 overflow-hidden">
           <h3 className="font-display font-medium text-paper mb-3 text-sm">
             {activeSeg.segment_name} vs. portfolio average
           </h3>
@@ -107,7 +101,7 @@ export default function Segmentation() {
             </span>
             .
           </div>
-        </motion.div>
+        </div>
       )}
     </div>
   );

@@ -42,12 +42,18 @@ if you're showing it live.
 ## 2. Deploy the frontend — Vercel
 
 1. Go to https://vercel.com → sign in with GitHub.
-2. **Add New** → **Project** → select your repo, set root directory to `frontend/`.
-3. Vercel auto-detects Vite. Before deploying, add an environment variable:
+2. **Add New** → **Project** → select your repo. Keep the root directory at the repository root.
+   The root `vercel.json` installs and builds only `frontend/`, so Vercel does not install
+   the Python, ML, test, or local-analysis dependencies used by the Render backend.
+3. Before deploying, add an environment variable:
    - `VITE_API_BASE_URL` = `https://bnpl-backend.onrender.com` (your Render URL from step 1)
 4. Deploy. `vercel.json` is already included so client-side routes (`/app/segmentation`,
    etc.) don't 404 on refresh.
 5. You'll get a URL like `https://bnpl-ledger.vercel.app` — that's your shareable link.
+
+The frontend runtime dependency set is intentionally small: React, React Router, and
+Recharts. HTTP requests use the browser's native `fetch`, and motion effects use CSS,
+so Axios and Framer Motion are not part of the Vercel install or production bundle.
 
 ## 3. Tighten CORS (optional, recommended before sharing widely)
 

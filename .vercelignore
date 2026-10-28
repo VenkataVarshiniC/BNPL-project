@@ -1,0 +1,8 @@
+backend/
+docs/
+.pytest_cache/
+**/__pycache__/
+check_consistency.py
+uat_run.py
+CHANGELOG.md
+*.zip

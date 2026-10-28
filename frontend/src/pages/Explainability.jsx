@@ -43,7 +43,7 @@ export default function Explainability() {
       const data = await getExplainability(customerId);
       setResult(data);
     } catch (err) {
-      setError(err.response?.data?.detail || err.message);
+      setError(err.data?.detail || err.message);
     } finally {
       setLoading(false);
     }

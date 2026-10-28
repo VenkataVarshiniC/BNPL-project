@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { postRiskScore } from "../api/client.js";
 import Loader from "../components/Loader.jsx";
 import ErrorState from "../components/ErrorState.jsx";
@@ -46,7 +45,7 @@ export default function RiskScore() {
       });
       setResult(data);
     } catch (err) {
-      setError(err.response?.data?.detail || err.message);
+      setError(err.data?.detail || err.message);
     } finally {
       setLoading(false);
     }
@@ -118,12 +117,7 @@ export default function RiskScore() {
         {loading && <Loader label="Scoring transaction" />}
         {error && <ErrorState message={error} />}
         {result && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.97 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.25 }}
-            className="card p-5"
-          >
+          <div className="page-enter card p-5">
             <div className="text-xs text-paper-dim mb-1">{result.customer_id}</div>
             <div className="num text-3xl font-semibold text-paper mb-3">
               {formatPercent(result.default_probability)}
@@ -140,7 +134,7 @@ export default function RiskScore() {
               <div className="text-xs text-paper-dim mb-1">Recommended action</div>
               <div className="text-sm text-paper">{result.recommended_action}</div>
             </div>
-          </motion.div>
+          </div>
         )}
         {!loading && !error && !result && (
           <div className="card p-5 text-sm text-paper-dim">

@@ -1,28 +1,25 @@
-import { useEffect, useRef } from "react";
-import { useMotionValue, useSpring, useInView } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export default function AnimatedNumber({ value, format = (v) => v, duration = 1 }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true });
-  const motionVal = useMotionValue(0);
-  const spring = useSpring(motionVal, { duration: duration * 1000, bounce: 0 });
+  const [display, setDisplay] = useState(0);
 
   useEffect(() => {
-    if (inView && typeof value === "number" && !Number.isNaN(value)) {
-      motionVal.set(value);
-    }
-  }, [inView, value]);
-
-  useEffect(() => {
-    const unsub = spring.on("change", (latest) => {
-      if (ref.current) ref.current.textContent = format(latest);
-    });
-    return unsub;
-  }, [spring, format]);
+    if (typeof value !== "number" || Number.isNaN(value)) return undefined;
+    const started = performance.now();
+    let frame;
+    const tick = (now) => {
+      const progress = Math.min((now - started) / (duration * 1000), 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplay(value * eased);
+      if (progress < 1) frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [value, duration]);
 
   if (typeof value !== "number" || Number.isNaN(value)) {
     return <span>{format(value)}</span>;
   }
 
-  return <span ref={ref}>{format(0)}</span>;
+  return <span>{format(display)}</span>;
 }
